@@ -14,13 +14,17 @@ export interface TokenRow {
 }
 
 /** Finds a valid (unexpired, and unused if single-use) token. Returns null for anything else. */
-export async function findToken(token: string, purpose: TokenPurpose, opts: { allowUsed?: boolean } = {}) {
+export async function findToken(
+  token: string,
+  purpose: TokenPurpose | TokenPurpose[],
+  opts: { allowUsed?: boolean } = {},
+) {
   if (!looksLikeToken(token)) return null;
   const { data } = await db()
     .from("access_tokens")
     .select("id, order_id, deletion_request_id, purpose, expires_at, used_at")
     .eq("token_hash", hashToken(token))
-    .eq("purpose", purpose)
+    .in("purpose", Array.isArray(purpose) ? purpose : [purpose])
     .maybeSingle<TokenRow>();
   if (!data) return null;
   if (Date.parse(data.expires_at) <= Date.now()) return null;
