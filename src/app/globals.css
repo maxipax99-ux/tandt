@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/*
+ * One brand, two moods.
+ * Default (celebration): warm ivory, deep ink, rose accent.
+ * [data-mood="memorial"]: soft stone, slate ink, muted sage accent.
+ * All text/background pairs below meet WCAG AA (4.5:1) contrast.
+ */
+:root {
+  color-scheme: light;
+  --bg: #fbf7f1;
+  --surface: #ffffff;
+  --ink: #2b2522;
+  --muted: #5e544d;
+  --accent: #97364a;
+  --accent-ink: #ffffff;
+  --accent-soft: #f6e4e3;
+  --line: #e7ddd2;
+  --focus: #1f5fbf;
+}
+
+[data-mood="memorial"] {
+  --bg: #f4f5f3;
+  --surface: #fbfbfa;
+  --ink: #2c3535;
+  --muted: #4f5b5a;
+  --accent: #445c59;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5ebe9;
+  --line: #dde2df;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-line: var(--line);
+  --font-serif: var(--font-heading), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-body), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+.prose-legal h2 {
+  font-size: 1.35rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p,
+.prose-legal ul {
+  margin-bottom: 0.9rem;
+}
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-legal a {
+  text-decoration: underline;
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
